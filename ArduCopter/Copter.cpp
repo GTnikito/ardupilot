@@ -91,6 +91,7 @@ const AP_HAL::HAL& hal = AP_HAL::get_HAL();
 const AP_Scheduler::Task Copter::scheduler_tasks[] = {
     SCHED_TASK(rc_loop,              100,    130),
     SCHED_TASK(throttle_loop,         50,     75),
+    SCHED_TASK(debug_print_loop,      debug_print_freq,     75),
     SCHED_TASK(update_GPS,            50,    200),
 #if OPTFLOW == ENABLED
     SCHED_TASK_CLASS(OpticalFlow,          &copter.optflow,             update,         200, 160),
@@ -302,6 +303,11 @@ void Copter::throttle_loop()
 
     // compensate for ground effect (if enabled)
     update_ground_effect_detector();
+}
+
+void Copter::debug_print_loop()
+{
+    test_entity.do_action();
 }
 
 // update_batt_compass - read battery and compass

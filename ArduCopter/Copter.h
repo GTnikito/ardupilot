@@ -78,6 +78,7 @@
 #include <AP_TempCalibration/AP_TempCalibration.h>
 #include <AC_AutoTune/AC_AutoTune.h>
 #include <AP_Common/AP_FWVersion.h>
+#include <AP_FrequentMessage/AP_FrequentMessage.h>
 
 // Configuration
 #include "defines.h"
@@ -946,6 +947,10 @@ private:
     // mode.cpp
     Mode *mode_from_mode_num(const uint8_t mode);
     void exit_mode(Mode *&old_flightmode, Mode *&new_flightmode);
+
+    AP_FrequentMessage test_entity;
+    static constexpr int debug_print_freq = 50;
+    void debug_print_loop();
 
 public:
     void mavlink_delay_cb();    // GCS_Mavlink.cpp
